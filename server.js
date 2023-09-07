@@ -31,10 +31,11 @@ app.get("/api", (req, res, next) => {
   const randomMinutes = Math.floor(Math.random() * 5) - 2;
 
   const newMinute = currentMinutes + randomMinutes;
+  console.log(newMinute);
 
   currentDate.setUTCMinutes(newMinute);
 
-  const utc_time = currentDate.toISOString();
+  const utc_time = currentDate.toISOString().replace(/\.\d+Z$/, "Z");
 
   return res.status(200).json({
     slack_name,
