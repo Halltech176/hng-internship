@@ -19,6 +19,10 @@ const daysOfWeek = [
 app.get("/api", (req, res, next) => {
   const { slack_name, track } = req.query;
 
+  if (!slack_name || !track) {
+    return next(new Error("both your slack name and track is required"));
+  }
+
   const currentDate = new Date();
   const current_day = daysOfWeek[currentDate.getDay()];
 
@@ -37,7 +41,24 @@ app.get("/api", (req, res, next) => {
     current_day,
     utc_time,
     track,
+    github_file_url:
+      "https://github.com/Halltech176/hng-internship/blob/main/server.js",
+    github_repo_url: "https://github.com/Halltech176/hng-internship.git",
     status_code: 200,
+  });
+});
+
+app.all("*", (req, res, next) => {
+  return res.status(404).json({
+    message: "route not found",
+  });
+});
+
+// Global Error handling Middleware
+
+app.use((err, req, res, next) => {
+  return res.status(401).json({
+    message: err.message || "an error occured",
   });
 });
 
