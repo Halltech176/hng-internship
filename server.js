@@ -25,17 +25,18 @@ app.get("/api", (req, res, next) => {
 
   const currentDate = new Date();
   const current_day = daysOfWeek[currentDate.getDay()];
-
-  const currentMinutes = currentDate.getUTCMinutes();
-
-  const randomMinutes = Math.floor(Math.random() * 5) - 2;
-
-  const newMinute = currentMinutes + randomMinutes;
-  console.log(newMinute);
-
-  currentDate.setUTCMinutes(newMinute);
-
   const utc_time = currentDate.toISOString().replace(/\.\d+Z$/, "Z");
+
+  //   const currentMinutes = currentDate.getUTCMinutes();
+
+  //   const randomMinutes = Math.floor(Math.random() * 5) - 2;
+
+  //   const newMinute = currentMinutes + randomMinutes;
+  //   console.log({ newMinute, currentMinutes, randomMinutes });
+
+  //   currentDate.setUTCMinutes(newMinute);
+
+  //   const utc_time = currentDate.toISOString().replace(/\.\d+Z$/, "Z");
 
   return res.status(200).json({
     slack_name,
